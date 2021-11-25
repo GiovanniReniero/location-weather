@@ -17,8 +17,9 @@ autoComplete ({
   },
 
   inputValue(item){
-    return 
-    `<h3>${ item.place_name  }</h3>`
+    return `
+    <h3>${ item.place_name }</h3>
+    `;
   },
   
 })

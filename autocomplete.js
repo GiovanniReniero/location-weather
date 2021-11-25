@@ -1,8 +1,7 @@
-// this the executor
+ // this the executor
 
 function autoComplete ({root, getApiData, inputValue}) {
 
-  console.log("Hello")
   root.innerHTML = 
      `
     <label><b>Search</b><label>
@@ -18,17 +17,25 @@ function autoComplete ({root, getApiData, inputValue}) {
 
   const input = root.querySelector(".input");
   const dropdown = root.querySelector(".dropdown");
+  const laCarte = root.querySelector(".dropdown-content");
 
   const onInput =  (async (evt) => {
     const items = await getApiData(evt.target.value)
+    if(!items.length){
+      console.log("No Items Found")
+      dropdown.classList.remove("is-active")
+      return
+    }
     dropdown.classList.add("is-active")
     for(let item of items){
-      const element = document.createElement('a')
-      element.innerHTML = inputValue(item)
-      element.classList.add("dropdown-item")
+      const option = document.createElement("a")
+      option.classList.add("dropdown-item")
+      option.innerHTML = inputValue(item)
+      console.log(option)
+      laCarte.appendChild(option)
     }
   })
 
-  input.addEventListener("input", onInput)
+  input.addEventListener("input", debounce(onInput))
 
 }
