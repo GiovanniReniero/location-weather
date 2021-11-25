@@ -28,11 +28,13 @@ function autoComplete ({root, getApiData, inputValue}) {
     }
     dropdown.classList.add("is-active")
     for(let item of items){
-      const option = document.createElement("a")
-      option.classList.add("dropdown-item")
-      option.innerHTML = inputValue(item)
-      console.log(option)
-      laCarte.appendChild(option)
+        const option = document.createElement("a")
+        option.classList.add("dropdown-item")
+        option.innerHTML = inputValue(item)
+        console.log(option)
+        if (option.innerHTML){
+          laCarte.appendChild(option)
+        }
     }
   })
 

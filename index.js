@@ -17,9 +17,19 @@ autoComplete ({
   },
 
   inputValue(item){
-    return `
-    <h3>${ item.place_name }</h3>
-    `;
+    if(item.place_type.includes("place")){
+      return `
+        <h2>${ item.place_name }</h2>
+        `;
+    }
+    else{
+      return ``;
+    }
+    
   },
+
+  optionSelect(item){
+    console.log("Hellofrom :", item)
+  }
   
 })
