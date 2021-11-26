@@ -1,6 +1,6 @@
  // this the executor
 
-function autoComplete ({root, getApiData, inputValue}) {
+function autoComplete ({root, getApiData, inputValue, optionSelect}) {
 
   root.innerHTML = 
      `
@@ -31,11 +31,23 @@ function autoComplete ({root, getApiData, inputValue}) {
         const option = document.createElement("a")
         option.classList.add("dropdown-item")
         option.innerHTML = inputValue(item)
-        console.log(option)
+        option.addEventListener("click", ()=>{
+          dropdown.classList.remove("is-active")
+          optionSelect(item)
+        })
         if (option.innerHTML){
           laCarte.appendChild(option)
         }
-    }
+      }
+      document.addEventListener("click", (evt) => {
+        console.log(evt)
+        if(!root.contains(evt.target)){
+          dropdown.classList.remove("is-active")
+          // console.log(input.value);
+          input.value="";
+          laCarte.innerHTML = "";
+        }
+      })
   })
 
   input.addEventListener("input", debounce(onInput))
