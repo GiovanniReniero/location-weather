@@ -18,6 +18,7 @@ function autoComplete ({root, getApiData, inputValue, optionSelect}) {
   const input = root.querySelector(".input");
   const dropdown = root.querySelector(".dropdown");
   const laCarte = root.querySelector(".dropdown-content");
+  const container = document.querySelector(".container");
 
   const onInput =  (async (evt) => {
     const items = await getApiData(evt.target.value)
@@ -28,26 +29,24 @@ function autoComplete ({root, getApiData, inputValue, optionSelect}) {
     }
     dropdown.classList.add("is-active")
     for(let item of items){
-        const option = document.createElement("a")
-        option.classList.add("dropdown-item")
-        option.innerHTML = inputValue(item)
-        option.addEventListener("click", ()=>{
-          dropdown.classList.remove("is-active")
-          optionSelect(item)
-        })
-        if (option.innerHTML){
-          laCarte.appendChild(option)
-        }
-      }
-      document.addEventListener("click", (evt) => {
-        console.log(evt)
-        if(!root.contains(evt.target)){
-          dropdown.classList.remove("is-active")
-          // console.log(input.value);
-          input.value="";
-          laCarte.innerHTML = "";
-        }
+      const option = document.createElement("a")
+      option.classList.add("dropdown-item")
+      option.innerHTML = inputValue(item)
+      option.addEventListener("click", ()=>{
+        dropdown.classList.remove("is-active")
+        optionSelect(item)
       })
+      if (option.innerHTML){
+        laCarte.appendChild(option)
+      }
+    }
+    document.addEventListener("click", (evt) => {
+      if(!root.contains(evt.target)){
+        dropdown.classList.remove("is-active")
+        input.value="";
+        laCarte.innerHTML = "";
+      }
+    })
   })
 
   input.addEventListener("input", debounce(onInput))
