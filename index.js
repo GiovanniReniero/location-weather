@@ -15,7 +15,7 @@ autoComplete ({
     return results.data.features;
   },
 
-  inputValue(item){
+  renderOption(item){
     if(item.place_type.includes("place")||item.place_type.includes("locality")) {
       return `
         <h2>${ item.place_name }</h2>
@@ -26,23 +26,24 @@ autoComplete ({
     }
   },
 
-  optionSelect(item){
+  inputValue(item){
     document.querySelector(".tutorial").classList.add("is-hidden");
-    onLocatioSelect(item)
+    const summaryElement = document.querySelector("#autocomplete")
+    onPlaceSelect(item, summaryElement)
   }
-  
-})
 
+});
 
-const onLocatioSelect = (async (item) => {
-  const results = {}
-  console.log("Hellofrom :", item)
-  const boundingBox = item.bbox
+  async function onPlaceSelect (item, summaryElement) {
+  const results = {};
+  results.name = item.place_name;
+  const boundingBox = item.bbox;
   const long = item.center[0];
   const lat = item.center[1];
-  console.log(long, lat)
-  console.log(boundingBox)
-
+  console.log(long, lat);
+  console.log(boundingBox);
+  results.long = long;
+  results.lat = lat;
 
   // const map = await axios.get( `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s-l+000(${long},${lat})/${long},${lat}/400x400?`, {
   const map = await axios.get( `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${boundingBox}/400x400?`, {
@@ -56,6 +57,19 @@ const onLocatioSelect = (async (item) => {
       // zoom: 9,
     }
   })
-   console.log(map)
-  
-})
+  results.map = map
+  console.log("Hi this is from index", results)
+  summaryElement.innerHTML = costomPlaceTemplate(results) //can extract if passed on as an argument
+
+}
+
+
+costomPlaceTemplate = ({name, long, lat, map}) => {
+  console.log(map);
+  return `
+  <h1>${name}</h1>
+  <h1>${long}</h1>
+  <h1>${lat}</h1>
+  <img src="map" />
+  `
+}
