@@ -36,9 +36,8 @@ function autoComplete ({root, getApiData, renderOption, inputValue}) {
  
       option.addEventListener("click", ()=>{
         dropdown.classList.remove("is-active")
-        let results = inputValue(item)
+        inputValue(item)
      
-        console.log("Hi this is from Autocomplete", results) 
       })
       if (option.innerHTML){
         laCarte.appendChild(option)
