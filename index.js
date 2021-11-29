@@ -60,15 +60,23 @@ autoComplete ({
      }
     })
     console.log(tempo.data)
-    return(tempo.data)
+    results.wethDescription = tempo.data.weather[0].description;
+    results.temp = tempo.data.main.temp;
+    results.feelsLike = tempo.data.main.feels_like;
+    results.humidity = tempo.data.main.humidity;
+    results.visibility = tempo.data.visibility;
+    // results.timeZone = tempo.data.timeZone;
+    
+    console.log(results)
+    summaryElement.innerHTML = costomPlaceTemplate(results) //can extract if passed on as an argument
 }
-  // summaryElement.innerHTML = costomPlaceTemplate(results) //can extract if passed on as an argument
   
 
 
 
 costomPlaceTemplate = (results) => {
-  const {name, long, lat, boundingBox} = results
+  const {name, long, lat, boundingBox, wethDescription, temp, feelsLike, humidity, visibility } = results
+  
   return `
     <div class="mapBox"
       <h1>${name}</h1>
@@ -76,6 +84,14 @@ costomPlaceTemplate = (results) => {
       <h1>${lat}</h1>
     
       <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/[${boundingBox[0]}, ${boundingBox[1]}, ${boundingBox[2]}, ${boundingBox[3]}]/400x400?access_token=pk.eyJ1IjoiZ2lvcmVuIiwiYSI6ImNrb3F4b2piMjB6djIyeW51MXRrNDlibnAifQ.Xrh4UH-0RwRGCRPRxl-EpA"/>
+    </div>
+
+    <div class="weather"
+      <h1>${wethDescription}</h1>
+      <h1>${temp} deg. C</h1>
+      <h1>${feelsLike} deg. C</h1>
+      <h1>${humidity}%</h1>
+      <h1>${visibility}m</h1>
     </div>
     `;
 }
