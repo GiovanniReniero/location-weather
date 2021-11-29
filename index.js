@@ -1,6 +1,3 @@
-//this is the configurator
-//access_token: pk.eyJ1IjoiZ2lvcmVuIiwiYSI6ImNrb3F4b2piMjB6djIyeW51MXRrNDlibnAifQ.Xrh4UH-0RwRGCRPRxl-EpA
-// APIKey: e2385a70454648afea5442d6b04eea8a
 
 const autoCompleteConfig = ({
   async getApiData (eventData) {
@@ -23,7 +20,6 @@ const autoCompleteConfig = ({
     }
   },
 })
-
 
 autoComplete ({
   ...autoCompleteConfig,
@@ -73,17 +69,16 @@ autoComplete ({
     console.log(results)
     summaryElement.innerHTML = costomPlaceTemplate(results) //can extract if passed on as an argument
 }
-  
 
 costomPlaceTemplate = (results) => {
   const {name, long, lat, boundingBox, wethDescription, temp, feelsLike, humidity, visibility } = results
-  
+
   console.log(name, long, lat, boundingBox, wethDescription, temp, feelsLike, humidity, visibility)  
   
   return `
     <div class="mapBox"
       <h1>${name}</h1>
-      <h1>Long: ${long}; Lat: ${lat} </h1>
+      <h1><strong>Long:</strong> ${long} deg.; <strong>Lat:</strong> ${lat} deg.</h1>
       <br>
       <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/[${boundingBox[0]}, ${boundingBox[1]}, ${boundingBox[2]}, ${boundingBox[3]}]/400x400?access_token=pk.eyJ1IjoiZ2lvcmVuIiwiYSI6ImNrb3F4b2piMjB6djIyeW51MXRrNDlibnAifQ.Xrh4UH-0RwRGCRPRxl-EpA"/>
     </div>
