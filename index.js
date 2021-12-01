@@ -58,7 +58,7 @@ autoComplete ({
           units: "metric",
      }
     })
-    console.log(tempo.data)
+    // console.log(tempo.data)
     results.wethDescription = tempo.data.weather[0].description.toUpperCase();
     results.temp = tempo.data.main.temp;
     results.feelsLike = tempo.data.main.feels_like
@@ -66,29 +66,32 @@ autoComplete ({
     results.visibility = tempo.data.visibility;
     // results.timeZone = tempo.data.timeZone;
     
-    console.log(results)
+    // console.log(results)
     summaryElement.innerHTML = costomPlaceTemplate(results) //can extract if passed on as an argument
 }
 
 costomPlaceTemplate = (results) => {
   const {name, long, lat, boundingBox, wethDescription, temp, feelsLike, humidity, visibility } = results
 
-  console.log(name, long, lat, boundingBox, wethDescription, temp, feelsLike, humidity, visibility)  
+  // console.log(name, long, lat, boundingBox, wethDescription, temp, feelsLike, humidity, visibility)  
   
   return `
     <div class="mapBox"
-      <h1>${name}</h1>
+      <h1 id="name"><strong>${name}</strong></h1>
       <h1><strong>Long:</strong> ${long} deg.; <strong>Lat:</strong> ${lat} deg.</h1>
       <br>
       <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/[${boundingBox[0]}, ${boundingBox[1]}, ${boundingBox[2]}, ${boundingBox[3]}]/400x400?access_token=pk.eyJ1IjoiZ2lvcmVuIiwiYSI6ImNrb3F4b2piMjB6djIyeW51MXRrNDlibnAifQ.Xrh4UH-0RwRGCRPRxl-EpA"/>
     </div>
+    <br>
 
     <div class="weather"
-      <h1>${wethDescription}</h1>
+      <h1 id="weatherDescription">${wethDescription}</h1>
       <h1>Current temperature ${temp} deg. C</h1>
       <h1>Feels like ${feelsLike} deg. C</h1>
       <h1>Humidity ${humidity}%</h1>
       <h1>Visibility ${visibility}m</h1>
+      <button class="button is-primary title is-3 is-hidden"> Reset </button>
     </div>
+
     `;
 }

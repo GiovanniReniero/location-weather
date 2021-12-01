@@ -2,17 +2,9 @@
   width: 600px;
   text-align: center;
   margin: auto;
+  font-size: 1.5rem;
 }
 
-figure.image {
-  display: flex;
-  justify-content: center;
-  background-color: black;
-}
-
-figure .image img {
-  width: 128px;
-}
 
 .notification {
   margin-top: 20px !important;
@@ -31,10 +23,10 @@ figure .image img {
   margin-bottom: 20px;
 }
 
-.forms {
+/* .forms {
   display: flex;
   justify-content: space-around;
-}
+} */
 
 .dropdown-item {
   display: flex;
@@ -47,6 +39,11 @@ figure .image img {
   margin-right: 10px;
 }
 
-.boxes{
-  display:flex
+.mapBox,
+.weather {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
