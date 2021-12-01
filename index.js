@@ -26,8 +26,8 @@ autoComplete ({
   root: document.querySelector("#leftAutocomplete"),
   inputValue(item){
     document.querySelector(".tutorial").classList.add("is-hidden");
-    const summaryElement = document.querySelector("#leftSummary")
-    onPlaceSelect(item, summaryElement)
+    const summaryElement = document.querySelector("#leftSummary");
+    onPlaceSelect(item, summaryElement);
   }
 });
 
@@ -37,8 +37,9 @@ autoComplete ({
   inputValue(item){
     document.querySelector(".tutorial").classList.add("is-hidden");
     const summaryElement = document.querySelector("#rightSummary")
-    onPlaceSelect(item, summaryElement)
+    onPlaceSelect(item, summaryElement);
   }
+  
 });
 
  const onPlaceSelect = async (item, summaryElement) => {
@@ -68,7 +69,8 @@ autoComplete ({
     
     // console.log(results)
     summaryElement.innerHTML = costomPlaceTemplate(results) //can extract if passed on as an argument
-}
+    reset();
+  }
 
 costomPlaceTemplate = (results) => {
   const {name, long, lat, boundingBox, wethDescription, temp, feelsLike, humidity, visibility } = results
@@ -94,4 +96,26 @@ costomPlaceTemplate = (results) => {
     </div>
 
     `;
+}
+
+const reset = () => {
+  const leftSummary=document.querySelector("#leftSummary");
+  const rightSummary= document.querySelector("#rightSummary");
+  const button= document.querySelector("#button");
+  const input = document.querySelector(".input");
+  const laCarte = document.querySelector(".dropdown-content");
+
+
+  if ( (leftSummary.innerHTML) && (rightSummary.innerHTML) ){
+    button.classList.remove("is-hidden");
+    button.addEventListener("click", () => {
+      console.log("Smash it!")
+      leftSummary.innerHTML="";
+      rightSummary.innerHTML="";
+      input.value="";
+      laCarte.innerHTML = "";
+      button.classList.add("is-hidden");
+      document.querySelector(".tutorial").classList.remove("is-hidden")     
+  })
+ }
 }
