@@ -18,10 +18,6 @@ function autoComplete ({root, getApiData, renderOption, inputValue}) {
   const input = root.querySelector(".input");
   const dropdown = root.querySelector(".dropdown");
   const laCarte = root.querySelector(".dropdown-content");
-  // const leftSummary = root.querySelector("#leftSummary");
-  const rightSummary = root.querySelector("#leftSummary");
-  // const container = document.querySelector(".container");
-  // console.log(leftSummary)
 
   const onInput =  (async (evt) => {
     const items = await getApiData(evt.target.value)
