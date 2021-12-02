@@ -48,8 +48,8 @@ autoComplete ({
    results.boundingBox = item.bbox;
    const long = item.center[0];
    const lat = item.center[1];
-   results.long = long;
-   results.lat = lat;
+   results.long = Math.round(long * Math.pow(10, 4))/Math.pow(10, 4);
+   results.lat = Math.round(lat * Math.pow(10, 4))/Math.pow(10, 4);
    
   const tempo = await axios.get("https://api.openweathermap.org/data/2.5/weather?", {
      params:{
@@ -80,18 +80,18 @@ costomPlaceTemplate = (results) => {
   return `
     <div class="mapBox"
       <h1 id="name"><strong>${name}</strong></h1>
-      <h1><strong>Long:</strong> ${long} deg.; <strong>Lat:</strong> ${lat} deg.</h1>
+      <h1 id="long-lat"><strong>Long:</strong> ${long} deg.; <strong>Lat:</strong> ${lat} deg.</h1>
       <br>
-      <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/[${boundingBox[0]}, ${boundingBox[1]}, ${boundingBox[2]}, ${boundingBox[3]}]/400x400?access_token=pk.eyJ1IjoiZ2lvcmVuIiwiYSI6ImNrb3F4b2piMjB6djIyeW51MXRrNDlibnAifQ.Xrh4UH-0RwRGCRPRxl-EpA"/>
+      <img id="mappa" src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/[${boundingBox[0]}, ${boundingBox[1]}, ${boundingBox[2]}, ${boundingBox[3]}]/400x400?access_token=pk.eyJ1IjoiZ2lvcmVuIiwiYSI6ImNrb3F4b2piMjB6djIyeW51MXRrNDlibnAifQ.Xrh4UH-0RwRGCRPRxl-EpA"/>
     </div>
     <br>
 
     <div class="weather"
-      <h1 id="weatherDescription">${wethDescription}</h1>
-      <h1>Current temperature ${temp} deg. C</h1>
-      <h1>Feels like ${feelsLike} deg. C</h1>
-      <h1>Humidity ${humidity}%</h1>
-      <h1>Visibility ${visibility}m</h1>
+      <h1 id="weather-description">${wethDescription}</h1>
+      <h1 id="current-temp">Current temperature ${temp} deg. C</h1>
+      <h1 id="feels-like">Feels like ${feelsLike} deg. C</h1>
+      <h1 id="humidity">Humidity ${humidity}%</h1>
+      <h1 id="visibility">Visibility ${visibility}m</h1>
       <button class="button is-primary title is-3 is-hidden"> Reset </button>
     </div>
 
